@@ -1,5 +1,8 @@
 # Accreditation System
-This project was build with Django, Django-RestFramework, PostgreSQL
+This project was build with Django (4.1.1), Django-RestFramework (3.14.0), PostgreSQL  
+![Accreditation](https://user-images.githubusercontent.com/69984427/193648703-0f51428c-ff3f-4fa2-aaaa-97169ac0e0f6.png)
+
+
 ### Installation
 - This project works with Django, Django Rest Framework, and PostgreSQL Database
 
