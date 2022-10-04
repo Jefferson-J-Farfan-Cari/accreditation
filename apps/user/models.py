@@ -8,22 +8,22 @@ from apps.base.models import BaseAuditingModel
 def user_path(instance, filename):
     extension = filename.split('.')[-1]
     name = filename.split('.')[0]
-    new_filename = "%s_%s.%s" % (name, instance.username, extension)
-
+    new_filename = "%s/perfil_%s.%s" % (instance.name, name, extension)
     return new_filename
 
 
 def permission_path(instance, filename):
     extension = filename.split('.')[-1]
     name = filename.split('.')[0]
-    new_filename = "%s_%s.%s" % (name, instance.name, extension)
+    new_filename = "%s/signature_%s.%s" % (instance.name, name, extension)
+    return new_filename
 
 
 class Permission(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     icon = models.ImageField(upload_to=permission_path, null=True, blank=True, verbose_name='icon_permission')
     path = models.CharField(max_length=120, unique=True, blank=True, null=True)
-    permission_F = models.IntegerField(null=True, blank=True)
+    fatherPermission = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = 'permission'
@@ -38,7 +38,7 @@ class Permission(BaseAuditingModel):
 class Role(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=100, blank=True, null=True, unique=False)
-    permissions = models.ManyToManyField(Permission, blank=True, null=True)
+    permissions = models.ManyToManyField(Permission, verbose_name='permission')
 
     class Meta:
         db_table = 'role'
@@ -80,7 +80,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True)
     image_user = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='perfil image')
     signature = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='signature image')
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True, verbose_name='role')
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, verbose_name='role')
     historical = HistoricalRecords()
     objects = UserManager()
 

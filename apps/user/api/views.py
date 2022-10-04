@@ -31,4 +31,4 @@ class PermissionViewSet(viewsets.ModelViewSet):
 
     queryset = Permission.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['permission_F', 'role']
+    filterset_fields = ['fatherPermission', 'role']
