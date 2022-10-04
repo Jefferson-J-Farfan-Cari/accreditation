@@ -14,6 +14,8 @@ THIRD_APPS = [
     'corsheaders',
     'drf_yasg',
     'simple_history',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 # Applications
@@ -31,4 +33,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite3',
     }
+}
+
+# Settings for Swagger
+SWAGGER_SETTINGS = {
+    'DOC_EXPANSION': 'none',
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
 }
