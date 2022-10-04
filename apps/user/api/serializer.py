@@ -16,28 +16,6 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class UpdateUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'name', 'last_name', 'image_user', 'role')
-
-
-class UserListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-
-    def to_representation(self, instance):
-        return {
-            'id': instance['id'],
-            'name': instance['name'],
-            'last_name': instance['last_name'],
-            'username': instance['username'],
-            'email': instance['email'],
-            'image_user': instance['image_user'],
-            'role': instance['role']
-        }
-
-
 # Role Serializer
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:

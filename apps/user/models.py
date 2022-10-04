@@ -51,9 +51,8 @@ class Role(BaseAuditingModel):
 
 
 class UserManager(BaseUserManager):
-    def _create_user(self, username, email, name, last_name, password, is_staff, is_superuser=False, **extra_fields):
+    def _create_user(self, email, name, last_name, password, is_staff, is_superuser=False, **extra_fields):
         user = self.model(
-            username=username,
             email=email,
             name=name,
             last_name=last_name,
@@ -65,22 +64,22 @@ class UserManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
-    def create_user(self, username, email, name, last_name, password=None, **extra_fields):
-        return self._create_user(username, email, name, last_name, password, False, False, **extra_fields)
+    def create_user(self, email, name, last_name, password=None, **extra_fields):
+        return self._create_user(email, name, last_name, password, False, False, **extra_fields)
 
-    def create_superuser(self, username, email, name, last_name, password=None, **extra_fields):
-        return self._create_user(username, email, name, last_name, password, True, True, **extra_fields)
+    def create_superuser(self, email, name, last_name, password=None, **extra_fields):
+        return self._create_user(email, name, last_name, password, True, True, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=255, unique=False)
     email = models.EmailField('Correo Electrónico', max_length=255, unique=True, )
     name = models.CharField('Nombres', max_length=255, blank=True, null=True)
     last_name = models.CharField('Apellidos', max_length=255, blank=True, null=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
-    image_user = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='foto de perfil')
+    image_user = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='perfil image')
+    signature = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='signature image')
     role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True, verbose_name='role')
     historical = HistoricalRecords()
     objects = UserManager()
