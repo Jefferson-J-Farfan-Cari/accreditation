@@ -38,6 +38,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.user.api.urls')),
+    path('', include('apps.course.api.urls')),
 ]
 
 # Swagger and redoc documentation
