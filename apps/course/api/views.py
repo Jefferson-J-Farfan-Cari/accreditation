@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
-from apps.course.api.serializer import DepartmentSerializer, PeriodAcademicSerializer, CourseSerializer, CurriculumSerializer, ComponentSerializer
+from apps.course.api.serializer import DepartmentSerializer, PeriodAcademicSerializer, CourseSerializer, \
+    CurriculumSerializer, ComponentSerializer
 from apps.course.models import Department, PeriodAcademic, Course, Curriculum, Component
 
 
@@ -18,11 +19,13 @@ class PeriodAcademicViewSet(ModelViewSet):
     queryset = PeriodAcademic.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
 
+
 class CourseViewSet(ModelViewSet):
     model = Course
     serializer_class = CourseSerializer
     queryset = Course.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['department']
 
 
 class CurriculumViewSet(ModelViewSet):

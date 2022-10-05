@@ -81,6 +81,7 @@ class Course(BaseAuditingModel):
     hours_laboratory = models.PositiveSmallIntegerField(default=0)
     component = models.ForeignKey(Component, on_delete=models.CASCADE, null=True, blank=True)
     curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ManyToManyField(Department, blank=True)
 
     class Meta:
         db_table = 'course'
