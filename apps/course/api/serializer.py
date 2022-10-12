@@ -30,3 +30,7 @@ class ComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Component
         exclude = ('create_date', 'modified_date', 'state')
+
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField(use_url=False)
