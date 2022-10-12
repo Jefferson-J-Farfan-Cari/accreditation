@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -44,6 +44,18 @@ class ComponentViewSet(ModelViewSet):
     serializer_class = ComponentSerializer
     queryset = Component.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
+
+
+class CourseListView(generics.ListCreateAPIView):
+    queryset = Course.objects.filter(state=True)
+    serializer_class = CourseSerializer
+
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
+        return super(CourseListView, self).get_serializer(*args, **kwargs)
+
+
 
 class FileUploadView(APIView):
 
