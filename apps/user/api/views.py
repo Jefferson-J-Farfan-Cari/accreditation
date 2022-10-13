@@ -2,9 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import viewsets
 
-from apps.user.models import User, Role, Permission
+from apps.user.models import User, Role, Permission, CurriculumVitae
 from apps.user.api.serializer import (
-    UserSerializer, RoleSerializer, PermissionSerializer
+    UserSerializer, RoleSerializer, PermissionSerializer, CurriculumVitaeSerializer
 )
 
 
@@ -19,7 +19,6 @@ class UserViewSet(viewsets.ModelViewSet):
 # Role CRUD
 class RoleViewSet(viewsets.ModelViewSet):
     serializer_class = RoleSerializer
-
     queryset = Role.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['name', 'user']
@@ -28,7 +27,14 @@ class RoleViewSet(viewsets.ModelViewSet):
 # Permission CRUD
 class PermissionViewSet(viewsets.ModelViewSet):
     serializer_class = PermissionSerializer
-
     queryset = Permission.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['fatherPermission', 'role']
+
+
+# CurriculumVitae CRUD
+class CurriculumVitaeViewSet(viewsets.ModelViewSet):
+    model = CurriculumVitae
+    serializer_class = CurriculumVitaeSerializer
+    queryset = CurriculumVitae.objects.filter(state=True)
+    filter_backends = [DjangoFilterBackend]
