@@ -68,7 +68,7 @@ class Component(BaseAuditingModel):
 
 
 class Course(BaseAuditingModel):
-    code = models.CharField(max_length=20)
+    code = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
     pre_requisite = models.ManyToManyField('self', blank=True)
