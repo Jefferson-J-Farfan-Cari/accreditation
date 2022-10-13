@@ -71,6 +71,7 @@ class Course(BaseAuditingModel):
     code = models.CharField(max_length=20)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
+    pre_requisite = models.ManyToManyField('self', blank=True)
     semester = models.PositiveSmallIntegerField(default=1, validators=[MaxValueValidator(10), MinValueValidator(1)])
     elective = models.BooleanField(default=False)
     credits = models.PositiveSmallIntegerField(default=0)
