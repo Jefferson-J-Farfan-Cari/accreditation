@@ -23,6 +23,7 @@ class Permission(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     icon = models.ImageField(upload_to=permission_path, null=True, blank=True, verbose_name='icon_permission')
     path = models.CharField(max_length=120, unique=True, blank=True, null=True)
+    edit = models.BooleanField(default=True)
     fatherPermission = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
