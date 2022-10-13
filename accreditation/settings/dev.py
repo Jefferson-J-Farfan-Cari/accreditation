@@ -22,7 +22,8 @@ THIRD_APPS = [
 OWN_APPS = [
     'apps.base',
     'apps.user',
-    'apps.course'
+    'apps.course',
+    'apps.student',
 ]
 
 # Settings for Django

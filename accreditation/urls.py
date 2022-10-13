@@ -39,6 +39,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.user.api.urls')),
     path('', include('apps.course.api.urls')),
+    path('', include('apps.student.api.urls')),
 ]
 
 # Swagger and redoc documentation
