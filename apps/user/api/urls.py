@@ -5,13 +5,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from apps.user.api.views import UserViewSet, RoleViewSet, PermissionViewSet
+from apps.user.api.views import UserViewSet, RoleViewSet, PermissionViewSet, CurriculumVitaeViewSet
 
 router = DefaultRouter()
 
 router.register(r'api/user', UserViewSet, basename="user")
 router.register(r'api/role', RoleViewSet, basename="role")
 router.register(r'api/permission', PermissionViewSet, basename="permission")
+router.register(r'api/curriculum_vitae', CurriculumVitaeViewSet, basename="curriculum_vitae")
 
 urlpatterns = router.urls
 # JWT Authentication Token

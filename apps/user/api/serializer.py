@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.user.models import User, Role, Permission
+from apps.user.models import User, Role, Permission, CurriculumVitae
 
 
 # User Serializer
@@ -27,4 +27,10 @@ class RoleSerializer(serializers.ModelSerializer):
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
+        exclude = ('create_date', 'modified_date')
+
+
+class CurriculumVitaeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CurriculumVitae
         exclude = ('create_date', 'modified_date')
