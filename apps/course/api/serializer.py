@@ -14,6 +14,18 @@ class PeriodAcademicSerializer(serializers.ModelSerializer):
         exclude = ('create_date', 'modified_date', 'state')
 
 
+# Course Create/Update list
+class CourseListSerializer(serializers.ListSerializer):
+    def update(self, instance, validated_data):
+        instance_hash = {index: instance for index, instance in enumerate(instance)}
+        result = [
+            self.child.update(instance_hash[index], attrs)
+            for index, attrs in enumerate(validated_data)
+        ]
+
+        return result
+
+
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
@@ -30,3 +42,7 @@ class ComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Component
         exclude = ('create_date', 'modified_date', 'state')
+
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField(use_url=False)
