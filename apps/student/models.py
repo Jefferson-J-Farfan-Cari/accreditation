@@ -2,7 +2,23 @@ from django.db import models
 from apps.base.models import BaseAuditingModel
 
 
+class Competencies(BaseAuditingModel):
+    type = models.IntegerField(unique=False, blank=False, null=False, default=1)
+    name = models.CharField(max_length=60, unique=True, blank=False, null=False)
+    description = models.CharField(max_length=380, unique=False, blank=False, null=False)
+
+    class Meta:
+        db_table = 'competencies'
+        abstract = False
+        verbose_name = 'Competencies'
+        verbose_name_plural = 'Competencies'
+
+    def __str__(self):
+        return self.name
+
+
 class StudentResult(BaseAuditingModel):
+    competencies = models.ForeignKey(Competencies, on_delete=models.CASCADE, blank=False)
     description = models.CharField(max_length=260, unique=False, blank=False, null=False)
 
     class Meta:
