@@ -1,7 +1,14 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
-from apps.student.models import *
+
 from apps.student.api.serializer import *
+
+
+class CompetenciesViewSet(ModelViewSet):
+    model = Competencies
+    serializer_class = CompetenciesSerializer
+    queryset = Competencies.objects.filter(state=True)
+    filter_backends = [DjangoFilterBackend]
 
 
 class StudentResultViewSet(ModelViewSet):
