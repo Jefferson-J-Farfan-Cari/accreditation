@@ -36,17 +36,17 @@ class Department(BaseAuditingModel):
         return self.name
 
 
-class Curriculum(BaseAuditingModel):
+class StudyPlan(BaseAuditingModel):
     name = models.CharField(max_length=100)
     year = models.CharField(max_length=4)
     description = models.CharField(max_length=200)
-    document = models.CharField(max_length=120)
+
 
     class Meta:
-        db_table = 'curriculum'
+        db_table = 'study_plan'
         abstract = False
-        verbose_name = 'Curriculum'
-        verbose_name_plural = 'Curriculums'
+        verbose_name = 'Study_Plan'
+        verbose_name_plural = 'Study_Plans'
 
     def __str__(self):
         return self.name
@@ -81,7 +81,7 @@ class Course(BaseAuditingModel):
     hours_practice = models.PositiveSmallIntegerField(default=0)
     hours_laboratory = models.PositiveSmallIntegerField(default=0)
     component = models.ForeignKey(Component, on_delete=models.CASCADE, null=True, blank=True)
-    curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, null=True, blank=True)
+    study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, null=True, blank=True)
     department = models.ManyToManyField(Department, blank=True)
 
     class Meta:
