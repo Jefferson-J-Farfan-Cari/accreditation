@@ -5,9 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from apps.course.api.serializer import DepartmentSerializer, PeriodAcademicSerializer, CourseSerializer, \
-    CurriculumSerializer, ComponentSerializer, FileUploadSerializer
+    StudyPlanSerializer, ComponentSerializer, FileUploadSerializer
 from apps.course.api.upload_csv import read_csv_courses
-from apps.course.models import Department, PeriodAcademic, Course, Curriculum, Component
+from apps.course.models import Department, PeriodAcademic, Course, StudyPlan, Component
 
 
 class DepartmentViewSet(ModelViewSet):
@@ -32,10 +32,10 @@ class CourseViewSet(ModelViewSet):
     filterset_fields = ['department']
 
 
-class CurriculumViewSet(ModelViewSet):
-    model = Curriculum
-    serializer_class = CurriculumSerializer
-    queryset = Curriculum.objects.filter(state=True)
+class StudyPlanViewSet(ModelViewSet):
+    model = StudyPlan
+    serializer_class = StudyPlanSerializer
+    queryset = StudyPlan.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
 
 

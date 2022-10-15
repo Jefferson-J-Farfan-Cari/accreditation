@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.course.models import Department, PeriodAcademic, Course, Curriculum, Component
+from apps.course.models import Department, PeriodAcademic, Course, StudyPlan, Component
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -32,9 +32,9 @@ class CourseSerializer(serializers.ModelSerializer):
         exclude = ('create_date', 'modified_date', 'state')
 
 
-class CurriculumSerializer(serializers.ModelSerializer):
+class StudyPlanSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Curriculum
+        model = StudyPlan
         exclude = ('create_date', 'modified_date', 'state')
 
 
