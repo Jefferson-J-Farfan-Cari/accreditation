@@ -1,3 +1,4 @@
+import datetime
 from email.policy import default
 from lib2to3.pytree import Base
 from sre_constants import MAX_UNTIL, MIN_UNTIL
@@ -10,6 +11,8 @@ class PeriodAcademic(BaseAuditingModel):
     year = models.CharField(max_length=4)
     period = models.CharField(max_length=1)
     status = models.BooleanField(default=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'period_academic'
@@ -41,7 +44,6 @@ class StudyPlan(BaseAuditingModel):
     year = models.CharField(max_length=4)
     description = models.CharField(max_length=200)
 
-
     class Meta:
         db_table = 'study_plan'
         abstract = False
@@ -57,7 +59,7 @@ class Component(BaseAuditingModel):
     abbreviation = models.CharField(max_length=1)
     description = models.CharField(max_length=200)
 
-    class Meta: 
+    class Meta:
         db_table = 'component'
         abstract = False
         verbose_name = 'Component'
