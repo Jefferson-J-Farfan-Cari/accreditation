@@ -14,6 +14,6 @@ router.register(r'api/component', ComponentViewSet, basename="component")
 urlpatterns = router.urls
 
 urlpatterns += [
-    path('api/file/', FileUploadView.as_view()),
+    path('api/course/file/upload_csv/', FileUploadView.as_view()),
     path('api/course/all/create/', CourseListView.as_view())
 ]
