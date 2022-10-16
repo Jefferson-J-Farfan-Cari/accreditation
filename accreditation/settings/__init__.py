@@ -32,6 +32,9 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
+# CORS CONFIG
+CORS_ORIGIN_ALLOW_ALL = True
+
 # Application definition
 
 FIRST_APPS = [
