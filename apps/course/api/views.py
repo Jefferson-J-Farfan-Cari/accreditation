@@ -1,5 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, generics
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -56,17 +59,47 @@ class CourseListView(generics.ListCreateAPIView):
         return super(CourseListView, self).get_serializer(*args, **kwargs)
 
 
-
 class FileUploadView(APIView):
+    parser_classes = [MultiPartParser]
 
+    @swagger_auto_schema(
+        operation_id='Upload Courses from a csv file',
+        operation_description='Create a list of courses of a study plan (2013, 2017, 2021, ...) from csv file',
+        manual_parameters=[
+            openapi.Parameter('file', openapi.IN_FORM, type=openapi.TYPE_FILE, description='CSV to be uploaded'),
+            openapi.Parameter('plan_study_id', openapi.IN_FORM, type=openapi.TYPE_NUMBER,
+                              description='Id of plan study'),
+        ],
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                'Success', schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+                    'file': openapi.Schema(type=openapi.TYPE_STRING, description='Name of csv file')
+                })
+            )
+        }
+    )
     def post(self, request):
-        # set 'data' so that you can use 'is_vaid()' and raise exception
-        # if the file fails validation
         serializer = FileUploadSerializer(data=request.data)
+
+        if request.data['plan_study_id'] is None:
+            return Response({
+                    'message': 'plan_study_id were not provided'
+                }, status=status.HTTP_400_BAD_REQUEST)
+        if len(StudyPlan.objects.filter(pk=request.data['plan_study_id'])) == 0:
+            return Response({
+                    'message': 'plan_study_id not found'
+                }, status=status.HTTP_404_NOT_FOUND)
+
         if serializer.is_valid():
             serializer.is_valid(raise_exception=True)
-            # once validated, grab the file from the request itself
             file = request.FILES['file']
-            print(read_csv_courses(file))
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            study_plan = request.data['plan_study_id']
+
+            read_csv_courses(file, study_plan)
+
+            return Response(
+                {
+                    'message': 'The file was submitted correctly',
+                    'data': serializer.data
+                }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
