@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.db import models
 from simple_history.models import HistoricalRecords
 
 from apps.base.models import BaseAuditingModel
@@ -15,7 +15,7 @@ def user_path(instance, filename):
 def permission_path(instance, filename):
     extension = filename.split('.')[-1]
     name = filename.split('.')[0]
-    new_filename = "%s/signature_%s.%s" % (instance.name, name, extension)
+    new_filename = "%s/icon_%s.%s" % (instance.name, name, extension)
     return new_filename
 
 
@@ -23,6 +23,7 @@ class Permission(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     icon = models.ImageField(upload_to=permission_path, null=True, blank=True, verbose_name='icon_permission')
     path = models.CharField(max_length=120, unique=True, blank=True, null=True)
+    edit = models.BooleanField(default=True)
     fatherPermission = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
@@ -94,3 +95,32 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'{self.name} {self.last_name}'
+
+
+class CurriculumVitae(BaseAuditingModel):
+    # role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, verbose_name='role')
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name='id_user')
+    professional_title = models.CharField(max_length=255)
+    academic_degree = models.CharField(max_length=255)
+    education = models.CharField(max_length=255)
+    dina_register = models.CharField(max_length=255)
+    experience_professional = models.CharField(max_length=255)
+    experience_academic = models.CharField(max_length=255)
+    collegue = models.CharField(max_length=255)
+    societies = models.CharField(max_length=255)
+    service = models.CharField(max_length=255)
+    awards = models.CharField(max_length=255)
+    conferences = models.CharField(max_length=255)
+    programs = models.CharField(max_length=255)
+    other = models.CharField(max_length=255)
+    idioms = models.CharField(max_length=255)
+    courses_dictates = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'curriculum_vitae'
+        abstract = False
+        verbose_name = 'Curriculum_Vitae'
+        verbose_name_plural = 'Curriculums_Vitae'
+
+    def __str__(self):
+        return f'{self.professional_title} {self.academic_degree}'
