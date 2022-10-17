@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.db import models
 from simple_history.models import HistoricalRecords
 
 from apps.base.models import BaseAuditingModel
@@ -15,7 +15,7 @@ def user_path(instance, filename):
 def permission_path(instance, filename):
     extension = filename.split('.')[-1]
     name = filename.split('.')[0]
-    new_filename = "%s/signature_%s.%s" % (instance.name, name, extension)
+    new_filename = "%s/icon_%s.%s" % (instance.name, name, extension)
     return new_filename
 
 

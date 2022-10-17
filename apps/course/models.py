@@ -1,15 +1,15 @@
-from email.policy import default
-from lib2to3.pytree import Base
-from sre_constants import MAX_UNTIL, MIN_UNTIL
-from django.db import models
-from apps.base.models import BaseAuditingModel
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+
+from apps.base.models import BaseAuditingModel
 
 
 class PeriodAcademic(BaseAuditingModel):
     year = models.CharField(max_length=4)
     period = models.CharField(max_length=1)
     status = models.BooleanField(default=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'period_academic'
@@ -36,17 +36,16 @@ class Department(BaseAuditingModel):
         return self.name
 
 
-class Curriculum(BaseAuditingModel):
+class StudyPlan(BaseAuditingModel):
     name = models.CharField(max_length=100)
     year = models.CharField(max_length=4)
     description = models.CharField(max_length=200)
-    document = models.CharField(max_length=120)
 
     class Meta:
-        db_table = 'curriculum'
+        db_table = 'study_plan'
         abstract = False
-        verbose_name = 'Curriculum'
-        verbose_name_plural = 'Curriculums'
+        verbose_name = 'Study_Plan'
+        verbose_name_plural = 'Study_Plans'
 
     def __str__(self):
         return self.name
@@ -57,7 +56,7 @@ class Component(BaseAuditingModel):
     abbreviation = models.CharField(max_length=1)
     description = models.CharField(max_length=200)
 
-    class Meta: 
+    class Meta:
         db_table = 'component'
         abstract = False
         verbose_name = 'Component'
@@ -68,9 +67,10 @@ class Component(BaseAuditingModel):
 
 
 class Course(BaseAuditingModel):
-    code = models.CharField(max_length=20)
+    code = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
+    pre_requisite = models.ManyToManyField('self', blank=True, symmetrical=False, db_constraint=False)
     semester = models.PositiveSmallIntegerField(default=1, validators=[MaxValueValidator(10), MinValueValidator(1)])
     elective = models.BooleanField(default=False)
     credits = models.PositiveSmallIntegerField(default=0)
@@ -80,8 +80,8 @@ class Course(BaseAuditingModel):
     hours_practice = models.PositiveSmallIntegerField(default=0)
     hours_laboratory = models.PositiveSmallIntegerField(default=0)
     component = models.ForeignKey(Component, on_delete=models.CASCADE, null=True, blank=True)
-    curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, null=True, blank=True)
-    department = models.ManyToManyField(Department, blank=True)
+    study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ManyToManyField(Department, blank=True, symmetrical=False, db_constraint=False)
 
     class Meta:
         db_table = 'course'

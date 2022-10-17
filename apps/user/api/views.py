@@ -1,11 +1,15 @@
 from django_filters.rest_framework import DjangoFilterBackend
-
 from rest_framework import viewsets
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-from apps.user.models import User, Role, Permission, CurriculumVitae
 from apps.user.api.serializer import (
-    UserSerializer, RoleSerializer, PermissionSerializer, CurriculumVitaeSerializer
+    UserSerializer, RoleSerializer, PermissionSerializer, CurriculumVitaeSerializer, CustomTokenObtainPairSerializer
 )
+from apps.user.models import User, Role, Permission, CurriculumVitae
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 # User CRUD
