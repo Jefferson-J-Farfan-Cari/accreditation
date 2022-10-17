@@ -70,7 +70,7 @@ class Course(BaseAuditingModel):
     code = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
-    pre_requisite = models.ManyToManyField('self', blank=True, symmetrical=False, db_constraint=False)
+    pre_requisite = models.ManyToManyField('self', blank=True, symmetrical=False)
     semester = models.PositiveSmallIntegerField(default=1, validators=[MaxValueValidator(10), MinValueValidator(1)])
     elective = models.BooleanField(default=False)
     credits = models.PositiveSmallIntegerField(default=0)
@@ -81,7 +81,7 @@ class Course(BaseAuditingModel):
     hours_laboratory = models.PositiveSmallIntegerField(default=0)
     component = models.ForeignKey(Component, on_delete=models.CASCADE, null=True, blank=True)
     study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, null=True, blank=True)
-    department = models.ManyToManyField(Department, blank=True, symmetrical=False, db_constraint=False)
+    department = models.ManyToManyField(Department, blank=True, symmetrical=False)
 
     class Meta:
         db_table = 'course'
