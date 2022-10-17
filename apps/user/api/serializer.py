@@ -12,9 +12,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['name'] = user.name
         token['lastname'] = user.last_name
         token['email'] = user.email
-        token['role'] = user.role.name
         token['role_id'] = user.role_id
-        # token['permissions'] = list(user.role.permissions.values('id', 'name', 'path'))
+        if user.role_id is not None:
+            token['role'] = user.role.name
+            token['permissions'] = list(user.role.permissions.values('id', 'name', 'path'))
 
         return token
 
@@ -54,6 +55,11 @@ class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         exclude = ('create_date', 'modified_date')
+
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['fatherPermission'] = PermissionSerializer(obj, many=False)
+        return super(PermissionSerializer, self).to_representation(obj)
 
 
 class CurriculumVitaeSerializer(serializers.ModelSerializer):
