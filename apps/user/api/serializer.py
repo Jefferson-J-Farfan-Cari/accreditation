@@ -9,14 +9,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
 
-        token['name'] = user.name
+        token['first_name'] = user.first_name
         token['lastname'] = user.last_name
         token['email'] = user.email
-        token['role_id'] = user.role_id
-        if user.role_id is not None:
-            token['role'] = user.role.name
-            token['permissions'] = list(user.role.permissions.values('id', 'name', 'path'))
-
+        token['role'] = list(user.role.values_list('id', flat=True))
         return token
 
 
@@ -34,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         if 'branches' not in self.fields:
-            self.fields['role'] = RoleSerializer(obj, many=False)
+            self.fields['role'] = RoleSerializer(obj, many=True)
         return super(UserSerializer, self).to_representation(obj)
 
 
@@ -58,7 +54,7 @@ class PermissionSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         if 'branches' not in self.fields:
-            self.fields['fatherPermission'] = PermissionSerializer(obj, many=False)
+            self.fields['sonPermissions'] = PermissionSerializer(obj, many=True)
         return super(PermissionSerializer, self).to_representation(obj)
 
 
