@@ -33,7 +33,7 @@ class PermissionViewSet(viewsets.ModelViewSet):
     serializer_class = PermissionSerializer
     queryset = Permission.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['fatherPermission', 'role']
+    filterset_fields = ['sonPermissions', 'role']
 
 
 # CurriculumVitae CRUD
