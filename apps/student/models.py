@@ -63,9 +63,11 @@ class LevelDescription(BaseAuditingModel):
 
 
 class Criteria(BaseAuditingModel):
+    name = models.CharField(max_length=32, unique=False, blank=False, null=False)
     student_result = models.ForeignKey(StudentResult, on_delete=models.CASCADE, blank=False, null=False)
     levelDescription = models.ManyToManyField(LevelDescription, blank=True)
     description = models.CharField(max_length=380, unique=False, blank=False, null=False)
+    levelSuggest = models.CharField(max_length=32, unique=False, blank=True)
 
     class Meta:
         db_table = 'criteria'
