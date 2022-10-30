@@ -1,11 +1,13 @@
 from django.db import models
 from apps.base.models import BaseAuditingModel
+from apps.course.models import StudyPlan
 
 
 class Competencies(BaseAuditingModel):
     type = models.IntegerField(unique=False, blank=False, null=False, default=1)
     name = models.CharField(max_length=60, unique=True, blank=False, null=False)
     description = models.CharField(max_length=380, unique=False, blank=False, null=False)
+    study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, blank=False, null=False)
 
     class Meta:
         db_table = 'competencies'
@@ -34,6 +36,7 @@ class StudentResult(BaseAuditingModel):
 class Level(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=False, blank=False, null=False)
     value = models.FloatField(blank=False, null=False)
+    study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, blank=False, null=False)
 
     class Meta:
         db_table = 'level'
