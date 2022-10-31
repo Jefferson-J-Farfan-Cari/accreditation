@@ -37,7 +37,7 @@ class Department(BaseAuditingModel):
 class StudyPlan(BaseAuditingModel):
     name = models.CharField(max_length=100)
     year = models.CharField(max_length=4)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, unique=False, blank=True, null=True)
 
     class Meta:
         db_table = 'study_plan'
@@ -52,7 +52,7 @@ class StudyPlan(BaseAuditingModel):
 class Component(BaseAuditingModel):
     name = models.CharField(max_length=100)
     abbreviation = models.CharField(max_length=1)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, unique=False, blank=True, null=True)
 
     class Meta:
         db_table = 'component'
