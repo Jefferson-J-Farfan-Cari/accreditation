@@ -7,7 +7,6 @@ from apps.base.models import BaseAuditingModel
 class PeriodAcademic(BaseAuditingModel):
     year = models.CharField(max_length=4)
     period = models.CharField(max_length=1)
-    status = models.BooleanField(default=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
@@ -24,7 +23,6 @@ class PeriodAcademic(BaseAuditingModel):
 class Department(BaseAuditingModel):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50, unique=True)
-    status = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'department'

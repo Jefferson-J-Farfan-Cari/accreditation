@@ -23,7 +23,7 @@ class UserViewSet(viewsets.ModelViewSet):
 # Role CRUD
 class RoleViewSet(viewsets.ModelViewSet):
     serializer_class = RoleSerializer
-    queryset = Role.objects.filter(state=True)
+    queryset = Role.objects.filter()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['name', 'user']
 
@@ -31,7 +31,7 @@ class RoleViewSet(viewsets.ModelViewSet):
 # Permission CRUD
 class PermissionViewSet(viewsets.ModelViewSet):
     serializer_class = PermissionSerializer
-    queryset = Permission.objects.filter(state=True)
+    queryset = Permission.objects.filter()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['sonPermissions', 'role']
 
@@ -40,5 +40,5 @@ class PermissionViewSet(viewsets.ModelViewSet):
 class CurriculumVitaeViewSet(viewsets.ModelViewSet):
     model = CurriculumVitae
     serializer_class = CurriculumVitaeSerializer
-    queryset = CurriculumVitae.objects.filter(state=True)
+    queryset = CurriculumVitae.objects.filter()
     filter_backends = [DjangoFilterBackend]
