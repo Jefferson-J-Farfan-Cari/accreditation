@@ -24,6 +24,7 @@ class Permission(BaseAuditingModel):
     icon = models.CharField(max_length=100, null=True, blank=True)
     path = models.CharField(max_length=120, unique=True, blank=True, null=True)
     edit = models.BooleanField(default=True)
+    isFather = models.BooleanField(default=True)
     sonPermissions = models.ManyToManyField('self', blank=True, symmetrical=False)
 
     class Meta:
