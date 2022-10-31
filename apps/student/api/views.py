@@ -7,28 +7,28 @@ from apps.student.api.serializer import *
 class CompetenciesViewSet(ModelViewSet):
     model = Competencies
     serializer_class = CompetenciesSerializer
-    queryset = Competencies.objects.filter(state=True)
+    queryset = Competencies.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class StudentResultViewSet(ModelViewSet):
     model = StudentResult
     serializer_class = StudentResultSerializer
-    queryset = StudentResult.objects.filter(state=True)
+    queryset = StudentResult.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class LevelViewSet(ModelViewSet):
     model = Level
     serializer_class = LevelSerializer
-    queryset = Level.objects.filter(state=True)
+    queryset = Level.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class LevelDescriptionViewSet(ModelViewSet):
     model = LevelDescription
     serializer_class = LevelDescriptionSerializer
-    queryset = LevelDescription.objects.filter(state=True)
+    queryset = LevelDescription.objects.filter()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['level']
 
@@ -36,5 +36,13 @@ class LevelDescriptionViewSet(ModelViewSet):
 class CriteriaViewSet(ModelViewSet):
     model = Criteria
     serializer_class = CriteriaSerializer
-    queryset = Criteria.objects.filter(state=True)
+    queryset = Criteria.objects.filter()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['student_result']
+
+
+class MatchSRCViewSet(ModelViewSet):
+    model = MatchStudentResultCompetencies
+    serializer_class = MatchSRCSerializer
+    queryset = MatchStudentResultCompetencies.objects.filter()
     filter_backends = [DjangoFilterBackend]

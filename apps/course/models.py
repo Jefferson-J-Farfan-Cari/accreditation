@@ -7,7 +7,6 @@ from apps.base.models import BaseAuditingModel
 class PeriodAcademic(BaseAuditingModel):
     year = models.CharField(max_length=4)
     period = models.CharField(max_length=1)
-    status = models.BooleanField(default=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
@@ -24,7 +23,6 @@ class PeriodAcademic(BaseAuditingModel):
 class Department(BaseAuditingModel):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50, unique=True)
-    status = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'department'
@@ -39,7 +37,7 @@ class Department(BaseAuditingModel):
 class StudyPlan(BaseAuditingModel):
     name = models.CharField(max_length=100)
     year = models.CharField(max_length=4)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, unique=False, blank=True, null=True)
 
     class Meta:
         db_table = 'study_plan'
@@ -54,7 +52,7 @@ class StudyPlan(BaseAuditingModel):
 class Component(BaseAuditingModel):
     name = models.CharField(max_length=100)
     abbreviation = models.CharField(max_length=1)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, unique=False, blank=True, null=True)
 
     class Meta:
         db_table = 'component'
