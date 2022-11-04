@@ -40,7 +40,7 @@ class Permission(BaseAuditingModel):
 class Role(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=100, blank=True, null=True, unique=False)
-    permissions = models.ManyToManyField(Permission, verbose_name='permission')
+    permissions = models.ManyToManyField(Permission, verbose_name='permission', symmetrical=False)
 
     class Meta:
         db_table = 'role'
@@ -82,7 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True)
     image_user = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='perfil image')
     signature = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='signature image')
-    role = models.ManyToManyField(Role, verbose_name='role')
+    role = models.ManyToManyField(Role, verbose_name='role', symmetrical=False)
     historical = HistoricalRecords()
     objects = UserManager()
 
