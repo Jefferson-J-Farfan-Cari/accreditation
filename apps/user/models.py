@@ -22,7 +22,7 @@ def permission_path(instance, filename):
 class Permission(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     icon = models.CharField(max_length=100, null=True, blank=True)
-    path = models.CharField(max_length=120, unique=True, blank=True, null=True)
+    path = models.CharField(max_length=120, unique=False, blank=True, null=True)
     edit = models.BooleanField(default=True)
     isFather = models.BooleanField(default=False)
     sonPermissions = models.ManyToManyField('self', blank=True, symmetrical=False)
