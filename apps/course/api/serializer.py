@@ -29,7 +29,13 @@ class CourseListSerializer(serializers.ListSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        exclude = ('create_date', 'modified_date', 'state')
+        exclude = ('create_date', 'modified_date')
+
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['component'] = ComponentSerializer(obj, many=False)
+            self.fields['study_plan'] = StudyPlanSerializer(obj, many=False)
+        return super(CourseSerializer, self).to_representation(obj)
 
 
 class StudyPlanSerializer(serializers.ModelSerializer):

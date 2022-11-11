@@ -32,7 +32,7 @@ class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.filter(state=True)
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['department']
+    filterset_fields = ['department', 'study_plan', 'state', 'name']
 
 
 class StudyPlanViewSet(ModelViewSet):
