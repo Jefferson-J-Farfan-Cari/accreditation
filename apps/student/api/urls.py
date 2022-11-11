@@ -9,5 +9,6 @@ router.register(r'api/student_result', StudentResultViewSet, basename="student_r
 router.register(r'api/level', LevelViewSet, basename="level")
 router.register(r'api/level_description', LevelDescriptionViewSet, basename="level_description")
 router.register(r'api/criteria', CriteriaViewSet, basename="criteria")
+router.register(r'api/match', MatchSRCViewSet, basename="match")
 
 urlpatterns = router.urls
