@@ -9,6 +9,7 @@ class CompetenciesViewSet(ModelViewSet):
     serializer_class = CompetenciesSerializer
     queryset = Competencies.objects.filter()
     filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['study_plan', 'name', 'state']
 
 
 class StudentResultViewSet(ModelViewSet):
@@ -16,6 +17,7 @@ class StudentResultViewSet(ModelViewSet):
     serializer_class = StudentResultSerializer
     queryset = StudentResult.objects.filter()
     filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['study_plan', 'name', 'state']
 
 
 class LevelViewSet(ModelViewSet):
@@ -23,6 +25,7 @@ class LevelViewSet(ModelViewSet):
     serializer_class = LevelSerializer
     queryset = Level.objects.filter()
     filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['study_plan', 'name', 'state']
 
 
 class LevelDescriptionViewSet(ModelViewSet):
