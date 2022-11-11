@@ -5,13 +5,13 @@ from apps.course.models import Department, PeriodAcademic, Course, StudyPlan, Co
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
-        exclude = ('create_date', 'modified_date')
+        exclude = ('create_date', 'modified_date', 'state')
 
 
 class PeriodAcademicSerializer(serializers.ModelSerializer):
     class Meta:
         model = PeriodAcademic
-        exclude = ('create_date', 'modified_date')
+        exclude = ('create_date', 'modified_date', 'state')
 
 
 # Course Create/Update list
@@ -31,17 +31,23 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         exclude = ('create_date', 'modified_date')
 
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['component'] = ComponentSerializer(obj, many=False)
+            self.fields['study_plan'] = StudyPlanSerializer(obj, many=False)
+        return super(CourseSerializer, self).to_representation(obj)
+
 
 class StudyPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudyPlan
-        exclude = ('create_date', 'modified_date')
+        exclude = ('create_date', 'modified_date', 'state')
 
 
 class ComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Component
-        exclude = ('create_date', 'modified_date')
+        exclude = ('create_date', 'modified_date', 'state')
 
 
 class FileUploadSerializer(serializers.Serializer):
