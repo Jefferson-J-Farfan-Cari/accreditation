@@ -22,7 +22,6 @@ def read_csv_courses(file, study_plan_id):
     elective = []
 
     study_plan = []
-    description = []
     department = []
 
     for i in range(len(df['PRE REQUISITO 1'])):
@@ -30,7 +29,6 @@ def read_csv_courses(file, study_plan_id):
         aux_d = []
 
         study_plan.append(int(study_plan_id))
-        description.append(df['NOMBRE DE LA ASIGNATURA'][i])
 
         if df['ELECTIVO'][i] == 0:
             elective.append(False)
@@ -58,8 +56,7 @@ def read_csv_courses(file, study_plan_id):
     df3.insert(10, "ELECTIVO", elective, allow_duplicates=True)
     # df3.insert(11, "component", component, allow_duplicates=True)
     df3.insert(11, "study_plan", study_plan, allow_duplicates=True)
-    df3.insert(12, "description", description, allow_duplicates=True)
-    df3.insert(13, "department", department, allow_duplicates=True)
+    df3.insert(12, "department", department, allow_duplicates=True)
 
     # Modificación de nombres de columnas
     df4 = df3.rename(columns={
@@ -84,7 +81,6 @@ def read_csv_courses(file, study_plan_id):
         aux_course = Course(
             code=course['code'],
             name=course['name'],
-            description=course['description'],
             semester=course['semester'],
             elective=course['elective'],
             credits=course['credits'],
