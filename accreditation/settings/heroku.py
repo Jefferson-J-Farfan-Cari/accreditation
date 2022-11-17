@@ -19,6 +19,7 @@ OWN_APPS = [
     'apps.user',
     'apps.course',
     'apps.student',
+    'apps.portafolio',
 ]
 
 # Settings for Swagger
