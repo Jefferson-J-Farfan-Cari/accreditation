@@ -39,7 +39,8 @@ class Permission(BaseAuditingModel):
 
 class Role(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
-    permissions = models.ManyToManyField(Permission, verbose_name='permission')
+    permissions = models.ManyToManyField(Permission, verbose_name='permission', symmetrical=False)
+    edit = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'role'

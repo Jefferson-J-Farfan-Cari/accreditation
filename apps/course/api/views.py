@@ -16,41 +16,41 @@ from apps.course.models import Department, PeriodAcademic, Course, StudyPlan, Co
 class DepartmentViewSet(ModelViewSet):
     model = Department
     serializer_class = DepartmentSerializer
-    queryset = Department.objects.filter(state=True)
+    queryset = Department.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class PeriodAcademicViewSet(ModelViewSet):
     model = PeriodAcademic
     serializer_class = PeriodAcademicSerializer
-    queryset = PeriodAcademic.objects.filter(state=True)
+    queryset = PeriodAcademic.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class CourseViewSet(ModelViewSet):
     model = Course
     serializer_class = CourseSerializer
-    queryset = Course.objects.filter(state=True)
+    queryset = Course.objects.filter()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['department']
+    filterset_fields = ['department', 'study_plan', 'state', 'name']
 
 
 class StudyPlanViewSet(ModelViewSet):
     model = StudyPlan
     serializer_class = StudyPlanSerializer
-    queryset = StudyPlan.objects.filter(state=True)
+    queryset = StudyPlan.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class ComponentViewSet(ModelViewSet):
     model = Component
     serializer_class = ComponentSerializer
-    queryset = Component.objects.filter(state=True)
+    queryset = Component.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
 class CourseListView(generics.ListCreateAPIView):
-    queryset = Course.objects.filter(state=True)
+    queryset = Course.objects.filter()
     serializer_class = CourseSerializer
 
     def get_serializer(self, *args, **kwargs):

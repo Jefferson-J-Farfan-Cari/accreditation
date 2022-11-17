@@ -23,8 +23,11 @@ class UserSerializer(serializers.ModelSerializer):
         exclude = ('groups', 'user_permissions', 'last_login', 'is_superuser', 'is_staff', 'is_active')
 
     def create(self, validated_data):
-        user = User(**validated_data)
+        role = validated_data.pop('role')
+        user = User.objects.create(**validated_data)
         user.set_password(validated_data['password'])
+        for rol in role:
+            user.role.add(rol.pk)
         user.save()
         return user
 
