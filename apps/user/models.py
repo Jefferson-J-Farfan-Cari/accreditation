@@ -22,9 +22,9 @@ def permission_path(instance, filename):
 class Permission(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
     icon = models.CharField(max_length=100, null=True, blank=True)
-    path = models.CharField(max_length=120, unique=False, blank=True, null=True)
+    path = models.CharField(max_length=120, unique=True, blank=True, null=True)
     edit = models.BooleanField(default=True)
-    isFather = models.BooleanField(default=False)
+    isFather = models.BooleanField(default=True)
     sonPermissions = models.ManyToManyField('self', blank=True, symmetrical=False)
 
     class Meta:
@@ -39,7 +39,6 @@ class Permission(BaseAuditingModel):
 
 class Role(BaseAuditingModel):
     name = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=100, blank=True, null=True, unique=False)
     permissions = models.ManyToManyField(Permission, verbose_name='permission', symmetrical=False)
     edit = models.BooleanField(default=True)
 
@@ -83,7 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True)
     image_user = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='perfil image')
     signature = models.ImageField(upload_to=user_path, null=True, blank=True, verbose_name='signature image')
-    role = models.ManyToManyField(Role, verbose_name='role', symmetrical=False)
+    role = models.ManyToManyField(Role, verbose_name='role')
     historical = HistoricalRecords()
     objects = UserManager()
 
