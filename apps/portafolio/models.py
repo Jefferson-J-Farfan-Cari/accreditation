@@ -68,7 +68,7 @@ class Folder(BaseAuditingModel):
 
 class Resource(BaseAuditingModel):
     period_academic = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=False, null=False)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, blank=False, null=False)
     type = models.BooleanField(default=True)
 
