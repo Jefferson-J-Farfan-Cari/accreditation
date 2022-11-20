@@ -35,21 +35,6 @@ class Task(BaseAuditingModel):
         return self.description
 
 
-class Folder(BaseAuditingModel):
-    name = models.CharField(max_length=120, unique=False, blank=False, null=False)
-    period_academic = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
-    etapa = models.BigIntegerField()  # phase = models.ForeignKey(Phase, on_delete=models.CASCADE, blank=False, null=False)
-
-    class Meta:
-        db_table = 'folder'
-        abstract = False
-        verbose_name = 'Folder'
-        verbose_name_plural = 'Folders'
-
-    def __str__(self):
-        return self.name
-
-
 class Stage(BaseAuditingModel):
     name = models.CharField(max_length=120, unique=False, blank=False, null=False)
     period_academic = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
@@ -62,6 +47,20 @@ class Stage(BaseAuditingModel):
         abstract = False
         verbose_name = 'Stage'
         verbose_name_plural = 'Stages'
+
+    def __str__(self):
+        return self.name
+
+
+class Folder(BaseAuditingModel):
+    name = models.CharField(max_length=120, unique=False, blank=False, null=False)
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE, blank=False, null=False)
+
+    class Meta:
+        db_table = 'folder'
+        abstract = False
+        verbose_name = 'Folder'
+        verbose_name_plural = 'Folders'
 
     def __str__(self):
         return self.name
