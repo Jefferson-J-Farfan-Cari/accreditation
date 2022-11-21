@@ -82,3 +82,14 @@ class Resource(BaseAuditingModel):
         return self.pk
 
 
+class Portfolio(BaseAuditingModel):
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, blank=False, null=False)
+
+    class Meta:
+        db_table = 'portfolio'
+        abstract = False
+        verbose_name = 'Portfolio'
+        verbose_name_plural = 'Portfolios'
+
+    def __str__(self):
+        return self.pk

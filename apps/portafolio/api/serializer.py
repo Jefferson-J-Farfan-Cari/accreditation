@@ -59,5 +59,16 @@ class StageSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         if 'branches' not in self.fields:
-            self.fields['period_academic'] = PeriodAcademicSerializer(obj, many= False)
+            self.fields['period_academic'] = PeriodAcademicSerializer(obj, many=False)
         return super(StageSerializer, self).to_representation(obj)
+
+
+class PortfolioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Portfolio
+        exclude = ('create_date', 'modified_date')
+
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['resource'] = ResourceSerializer(obj, many=False)
+        return super(PortfolioSerializer, self).to_representation(obj)
