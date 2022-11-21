@@ -8,5 +8,6 @@ router.register(r'api/professor', ProfessorViewSet, basename="professor")
 router.register(r'api/task', TaskViewSet, basename="task")
 router.register(r'api/folder', FolderViewSet, basename="folder")
 router.register(r'api/resource', ResourceViewSet, basename="resource")
+router.register(r'api/stage', StageViewSet, basename="stage")
 
 urlpatterns = router.urls

@@ -30,3 +30,9 @@ class ResourceViewSet(ModelViewSet):
     serializer_class = ResourceSerializer
     queryset = Resource.objects.filter()
     filter_backends = [DjangoFilterBackend]
+
+class StageViewSet(ModelViewSet):
+    model = Stage
+    serializer_class = StageSerializer
+    queryset = Resource.objects.filter()
+    filter_backends = [DjangoFilterBackend]

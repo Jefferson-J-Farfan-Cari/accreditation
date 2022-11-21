@@ -50,3 +50,14 @@ class ResourceSerializer(serializers.ModelSerializer):
             self.fields['course'] = CourseSerializer(obj, many=False)
             self.fields['follder'] = FolderSerializer(obj, many=False)
         return super(ResourceSerializer, self).to_representation(obj)
+
+
+class StageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stage
+        exclude = ('create_date', 'modified_date')
+
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['period_academic'] = PeriodAcademicSerializer(obj, many= False)
+        return super(StageSerializer, self).to_representation(obj)

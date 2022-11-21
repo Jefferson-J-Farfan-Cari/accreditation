@@ -80,3 +80,5 @@ class Resource(BaseAuditingModel):
 
     def __str__(self):
         return self.pk
+
+
