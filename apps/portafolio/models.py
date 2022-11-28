@@ -79,7 +79,7 @@ class Resource(BaseAuditingModel):
         verbose_name_plural = 'Resources'
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
 
 
 class Portfolio(BaseAuditingModel):
@@ -92,4 +92,4 @@ class Portfolio(BaseAuditingModel):
         verbose_name_plural = 'Portfolios'
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
