@@ -34,8 +34,8 @@ class FolderSerializer(serializers.ModelSerializer):
         exclude = ('create_date', 'modified_date')
 
     def to_representation(self, obj):
-        #if 'branches' not in self.fields:
-            #self.fields['stage'] = StageSerializer(obj, many=False)
+        # if 'branches' not in self.fields:
+        # self.fields['stage'] = StageSerializer(obj, many=False)
         return super(FolderSerializer, self).to_representation(obj)
 
 
@@ -48,7 +48,7 @@ class ResourceSerializer(serializers.ModelSerializer):
         if 'branches' not in self.fields:
             self.fields['period_academic'] = PeriodAcademicSerializer(obj, many=False)
             self.fields['course'] = CourseSerializer(obj, many=False)
-            self.fields['follder'] = FolderSerializer(obj, many=False)
+            self.fields['folder'] = FolderSerializer(obj, many=False)
         return super(ResourceSerializer, self).to_representation(obj)
 
 
@@ -72,3 +72,9 @@ class PortfolioSerializer(serializers.ModelSerializer):
         if 'branches' not in self.fields:
             self.fields['resource'] = ResourceSerializer(obj, many=False)
         return super(PortfolioSerializer, self).to_representation(obj)
+
+
+class CoursesByProfessorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
