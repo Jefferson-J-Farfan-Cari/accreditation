@@ -72,3 +72,9 @@ class PortfolioSerializer(serializers.ModelSerializer):
         if 'branches' not in self.fields:
             self.fields['resource'] = ResourceSerializer(obj, many=False)
         return super(PortfolioSerializer, self).to_representation(obj)
+
+
+class CoursesByProfessorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'

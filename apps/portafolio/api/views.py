@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import generics
 
 from apps.portafolio.api.serializer import *
 
@@ -44,3 +45,12 @@ class PortfolioViewSet(ModelViewSet):
     serializer_class = PortfolioSerializer
     queryset = Portfolio.objects.filter()
     filter_backends = [DjangoFilterBackend]
+
+
+class CoursesByProfessorAPIView(generics.ListAPIView):
+    serializer_class = CoursesByProfessorSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        period_id = self.kwargs['period_academic_id']
+        return Professor.objects.get(user_id=user_id, period_id=period_id).courses.all()
