@@ -31,7 +31,7 @@ class Department(BaseAuditingModel):
         verbose_name_plural = 'Departments'
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class StudyPlan(BaseAuditingModel):
@@ -46,7 +46,7 @@ class StudyPlan(BaseAuditingModel):
         verbose_name_plural = 'Study_Plans'
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Component(BaseAuditingModel):
@@ -61,7 +61,7 @@ class Component(BaseAuditingModel):
         verbose_name_plural = 'Components'
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Course(BaseAuditingModel):
@@ -87,4 +87,4 @@ class Course(BaseAuditingModel):
         verbose_name_plural = 'Courses'
 
     def __str__(self):
-        return self.name
+        return str(self.name)

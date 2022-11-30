@@ -16,7 +16,7 @@ class Professor(BaseAuditingModel):
         verbose_name_plural = 'Professors'
 
     def __str__(self):
-        return self.user_id
+        return str(self.user_id)
 
 
 class Task(BaseAuditingModel):
@@ -32,7 +32,7 @@ class Task(BaseAuditingModel):
         verbose_name_plural = 'Task'
 
     def __str__(self):
-        return self.description
+        return str(self.description)
 
 
 class Stage(BaseAuditingModel):
@@ -49,7 +49,7 @@ class Stage(BaseAuditingModel):
         verbose_name_plural = 'Stages'
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Folder(BaseAuditingModel):
@@ -63,7 +63,7 @@ class Folder(BaseAuditingModel):
         verbose_name_plural = 'Folders'
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Resource(BaseAuditingModel):
@@ -79,7 +79,7 @@ class Resource(BaseAuditingModel):
         verbose_name_plural = 'Resources'
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
 
 
 class Portfolio(BaseAuditingModel):
@@ -92,4 +92,4 @@ class Portfolio(BaseAuditingModel):
         verbose_name_plural = 'Portfolios'
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
