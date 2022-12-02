@@ -1,10 +1,22 @@
+import csv as csv_mod
+import codecs
+import copy
+
 import pandas as pd
 
 from apps.course.models import Course
 
 
 def read_csv_courses(file, study_plan_id):
-    df = pd.read_csv(file, encoding='latin-1')
+    df = None
+    file2 = copy.deepcopy(file)
+    dialect = csv_mod.Sniffer().sniff(codecs.EncodedFile(file2, "utf-8").readline().decode())
+
+    if dialect.delimiter == ',':
+        df = pd.read_csv(file, encoding='latin-1')
+    elif dialect.delimiter == ';':
+        df = pd.read_csv(file, encoding='latin-1', sep=';')
+
     # Llenar campso NaN a 0
     df['PRE REQUISITO 1'] = df['PRE REQUISITO 1'].fillna(0)
     df['PRE REQUISITO 2'] = df['PRE REQUISITO 2'].fillna(0)
@@ -24,7 +36,7 @@ def read_csv_courses(file, study_plan_id):
     study_plan = []
     department = []
 
-    for i in range(len(df['PRE REQUISITO 1'])):
+    for i in range(len(df.index)):
         aux_e = []
         aux_d = []
 
@@ -103,4 +115,3 @@ def read_csv_courses(file, study_plan_id):
     for i in range(len(model_instances)):
         model_instances[i].department.set(df5[i]['department'])
         model_instances[i].pre_requisite.set(df5[i]['pre_requisite'])
-
