@@ -53,4 +53,8 @@ class CoursesByProfessorAPIView(generics.ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         period_id = self.kwargs['period_academic_id']
-        return Professor.objects.get(user_id=user_id, period_id=period_id).courses.all()
+        data = Professor.objects.filter(user_id=user_id, period_id=period_id)
+        if data.exists():
+            return data.first().courses.all()
+        return []
+
