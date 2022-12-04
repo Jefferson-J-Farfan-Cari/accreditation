@@ -33,7 +33,7 @@ class LevelDescriptionViewSet(ModelViewSet):
     serializer_class = LevelDescriptionSerializer
     queryset = LevelDescription.objects.filter()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['level']
+    filterset_fields = ['level', 'criteria']
 
 
 class CriteriaViewSet(ModelViewSet):

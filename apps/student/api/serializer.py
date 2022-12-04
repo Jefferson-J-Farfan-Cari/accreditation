@@ -19,6 +19,12 @@ class LevelDescriptionSerializer(serializers.ModelSerializer):
         model = LevelDescription
         exclude = ('create_date', 'modified_date')
 
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['level'] = LevelSerializer(obj, many=False)
+            self.fields['criteria'] = CriteriaSerializer(obj, many=False)
+        return super(LevelDescriptionSerializer, self).to_representation(obj)
+
 
 class CriteriaSerializer(serializers.ModelSerializer):
     class Meta:
