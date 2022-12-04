@@ -39,6 +39,15 @@ class FolderSerializer(serializers.ModelSerializer):
         return super(FolderSerializer, self).to_representation(obj)
 
 
+class FormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Form
+        exclude = ('create_date', 'modified_date')
+
+        def to_representation(self, obj):
+            return super(FormSerializer, self).to_representation(obj)
+
+
 class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resource

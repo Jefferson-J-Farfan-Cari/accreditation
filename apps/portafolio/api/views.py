@@ -58,3 +58,9 @@ class CoursesByProfessorAPIView(generics.ListAPIView):
             return data.first().courses.all()
         return []
 
+
+class FormViewSet(ModelViewSet):
+    model = Form
+    serializer_class = FormSerializer
+    queryset = Form.objects.filter()
+    filter_backends = [DjangoFilterBackend]
