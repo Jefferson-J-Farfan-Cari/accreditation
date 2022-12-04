@@ -5,8 +5,9 @@ from apps.course.models import StudyPlan
 
 class Competencies(BaseAuditingModel):
     type = models.IntegerField(unique=False, blank=False, null=False, default=1)
-    name = models.CharField(max_length=60, unique=True, blank=False, null=False)
+    name = models.CharField(max_length=60, unique=False, blank=False, null=True)
     description = models.CharField(max_length=380, unique=False, blank=False, null=False)
+    description_en = models.CharField(max_length=380, unique=False, blank=False, null=False)
     study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, blank=False, null=True)
 
     class Meta:
@@ -22,7 +23,8 @@ class Competencies(BaseAuditingModel):
 class StudentResult(BaseAuditingModel):
     study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=160, unique=False, blank=False, null=False, default="name sr")
-    description = models.CharField(max_length=260, unique=False, blank=False, null=False)
+    description = models.CharField(max_length=260, unique=False, blank=False, null=True)
+    description_en = models.CharField(max_length=260, unique=False, blank=False, null=True)
 
     class Meta:
         db_table = 'student_result'

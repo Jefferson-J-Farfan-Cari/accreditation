@@ -60,20 +60,21 @@ def read_csv_courses(file, study_plan_id):
 
     df3 = df
     # Reemplazando datos de la columna pre requisitos
-    df3 = df3.drop(df3.columns[[4, 5]], axis='columns')
-    df3.insert(4, "pre_requisite", prerequisite, allow_duplicates=True)
+    df3 = df3.drop(df3.columns[[5, 6]], axis='columns')
+    df3.insert(5, "pre_requisite", prerequisite, allow_duplicates=True)
 
     # Reemplazamos datos de la columna electivo
-    df3 = df3.drop(df3.columns[[10]], axis='columns')
-    df3.insert(10, "ELECTIVO", elective, allow_duplicates=True)
+    df3 = df3.drop(df3.columns[[11]], axis='columns')
+    df3.insert(11, "ELECTIVO", elective, allow_duplicates=True)
     # df3.insert(11, "component", component, allow_duplicates=True)
-    df3.insert(11, "study_plan", study_plan, allow_duplicates=True)
-    df3.insert(12, "department", department, allow_duplicates=True)
+    df3.insert(12, "study_plan", study_plan, allow_duplicates=True)
+    df3.insert(13, "department", department, allow_duplicates=True)
 
     # Modificación de nombres de columnas
     df4 = df3.rename(columns={
         'CODIGO': 'code',
         'NOMBRE DE LA ASIGNATURA': 'name',
+        'SUBJECT NAME': 'name_en',
         'SEMESTRE': 'semester',
         'CREDITOS': 'credits',
         'HORAS TEORICAS': 'hours_theory',
@@ -93,6 +94,7 @@ def read_csv_courses(file, study_plan_id):
         aux_course = Course(
             code=course['code'],
             name=course['name'],
+            name_en=course['name_en'],
             semester=course['semester'],
             elective=course['elective'],
             credits=course['credits'],
