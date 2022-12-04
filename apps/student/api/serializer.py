@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.student.models import *
+from apps.course.api.serializer import CourseSerializer
 
 
 class CompetenciesSerializer(serializers.ModelSerializer):
@@ -56,3 +57,15 @@ class MatchSRCSerializer(serializers.ModelSerializer):
         if 'branches' not in self.fields:
             self.fields['competences'] = CompetenciesSerializer(obj, many=False)
         return super(MatchSRCSerializer, self).to_representation(obj)
+
+
+class MatchCourseCompetenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MatchCourseCompetence
+        exclude = ('create_date', 'modified_date')
+
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['course'] = CourseSerializer(obj, many=False)
+            self.fields['competencies'] = CompetenciesSerializer(obj, many=False)
+        return super(MatchCourseCompetenceSerializer, self).to_representation(obj)

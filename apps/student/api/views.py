@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
 
 from apps.student.api.serializer import *
 
@@ -49,3 +49,11 @@ class MatchSRCViewSet(ModelViewSet):
     serializer_class = MatchSRCSerializer
     queryset = MatchStudentResultCompetencies.objects.filter()
     filter_backends = [DjangoFilterBackend]
+
+
+class MatchCourseCompetenceViewSet(ModelViewSet):
+    model = MatchCourseCompetence
+    serializer_class = MatchCourseCompetenceSerializer
+    queryset = MatchCourseCompetence.objects.filter()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['study_plan', 'course']

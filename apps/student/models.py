@@ -1,6 +1,6 @@
 from django.db import models
 from apps.base.models import BaseAuditingModel
-from apps.course.models import StudyPlan
+from apps.course.models import StudyPlan, Course
 
 
 class Competencies(BaseAuditingModel):
@@ -92,3 +92,10 @@ class LevelDescription(BaseAuditingModel):
 
     def __str__(self):
         return self.description
+
+
+class MatchCourseCompetence(BaseAuditingModel):
+    study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    competencies = models.ManyToManyField(Competencies)
+    value = models.IntegerField()
