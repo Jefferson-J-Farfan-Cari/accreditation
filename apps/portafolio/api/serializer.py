@@ -34,8 +34,8 @@ class FolderSerializer(serializers.ModelSerializer):
         exclude = ('create_date', 'modified_date')
 
     def to_representation(self, obj):
-        # if 'branches' not in self.fields:
-        # self.fields['stage'] = StageSerializer(obj, many=False)
+        if 'branches' not in self.fields:
+            self.fields['stage'] = StageSerializer(obj, many=False)
         return super(FolderSerializer, self).to_representation(obj)
 
 

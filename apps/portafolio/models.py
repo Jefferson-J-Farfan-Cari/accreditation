@@ -54,7 +54,7 @@ class Stage(BaseAuditingModel):
 
 class Folder(BaseAuditingModel):
     name = models.CharField(max_length=120, unique=False, blank=False, null=False)
-    stage = models.ForeignKey(Stage, on_delete=models.CASCADE, blank=False, null=True)
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE, blank=False, null=False)
 
     class Meta:
         db_table = 'folder'
