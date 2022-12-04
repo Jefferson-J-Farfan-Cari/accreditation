@@ -93,3 +93,19 @@ class Portfolio(BaseAuditingModel):
 
     def __str__(self):
         return str(self.pk)
+
+
+class Form(BaseAuditingModel):
+    name = models.CharField(max_length=120, unique=False, blank=False, null=False)
+    path = models.CharField(max_length=200, unique=True, blank=False, null=False)
+    state = models.BooleanField(default=True)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, blank=False, null=True)
+
+    class Meta:
+        db_table = 'form'
+        abstract = False
+        verbose_name = 'Form'
+        verbose_name_plural = 'Forms'
+
+    def __str__(self):
+        return self.name
