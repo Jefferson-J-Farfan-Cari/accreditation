@@ -23,8 +23,8 @@ class Competencies(BaseAuditingModel):
 class StudentResult(BaseAuditingModel):
     study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=160, unique=False, blank=False, null=False, default="name sr")
-    description = models.CharField(max_length=260, unique=False, blank=False, null=True)
-    description_en = models.CharField(max_length=260, unique=False, blank=True, null=True)
+    description = models.CharField(max_length=540, unique=False, blank=False, null=True)
+    description_en = models.CharField(max_length=540, unique=False, blank=True, null=True)
 
     class Meta:
         db_table = 'student_result'
