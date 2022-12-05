@@ -25,6 +25,7 @@ OWN_APPS = [
     'apps.course',
     'apps.student',
     'apps.portafolio',
+    'apps.forms',
 ]
 
 # Settings for Django

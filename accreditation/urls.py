@@ -41,6 +41,7 @@ urlpatterns = [
     path('', include('apps.course.api.urls')),
     path('', include('apps.student.api.urls')),
     path('', include('apps.portafolio.api.urls')),
+    path('', include('apps.forms.api.urls')),
 ]
 
 # Swagger and redoc documentation
