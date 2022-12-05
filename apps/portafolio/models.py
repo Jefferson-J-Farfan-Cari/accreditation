@@ -4,6 +4,13 @@ from apps.user.models import User
 from apps.course.models import PeriodAcademic, Course
 
 
+def file_path(instance, filename):
+    extension = filename.split('.')[-1]
+    name = filename.split('.')[0]
+    new_filename = "%s/doc_%s.%s" % (instance.resource.course.name, name, extension)
+    return new_filename
+
+
 class Professor(BaseAuditingModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     period = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
@@ -80,6 +87,21 @@ class Resource(BaseAuditingModel):
 
     def __str__(self):
         return str(self.pk)
+
+
+class FileResource(BaseAuditingModel):
+    name = models.CharField(max_length=120, unique=False, blank=False, null=False)
+    path = models.FileField(upload_to=file_path, null=False, blank=False, verbose_name='file resource')
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, blank=False, null=False)
+
+    class Meta:
+        db_table = 'file_resource'
+        abstract = False
+        verbose_name = 'File_Resource'
+        verbose_name_plural = 'File_Resources'
+
+    def __str__(self):
+        return self.name
 
 
 class Portfolio(BaseAuditingModel):

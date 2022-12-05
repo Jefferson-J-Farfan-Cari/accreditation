@@ -33,6 +33,13 @@ class ResourceViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
 
 
+class FileResourceViewSet(ModelViewSet):
+    model = FileResource
+    serializer_class = FileResourceSerializer
+    queryset = FileResource.objects.filter()
+    filter_backends = [DjangoFilterBackend]
+
+
 class StageViewSet(ModelViewSet):
     model = Stage
     serializer_class = StageSerializer

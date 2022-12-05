@@ -61,6 +61,17 @@ class ResourceSerializer(serializers.ModelSerializer):
         return super(ResourceSerializer, self).to_representation(obj)
 
 
+class FileResourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileResource
+        exclude = ('create_date', 'modified_date')
+
+    def to_representation(self, obj):
+        if 'branches' not in self.fields:
+            self.fields['resource'] = ResourceSerializer(obj, many=False)
+        return super(FileResourceSerializer, self).to_representation(obj)
+
+
 class StageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stage
