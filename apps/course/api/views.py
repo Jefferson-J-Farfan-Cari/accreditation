@@ -73,6 +73,7 @@ class FileUploadView(APIView):
         responses={
             status.HTTP_200_OK: openapi.Response(
                 'Success', schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+                    'plan_study_id': openapi.Schema(type=openapi.TYPE_NUMBER, description='ID of Study Plan'),
                     'file': openapi.Schema(type=openapi.TYPE_STRING, description='Name of csv file')
                 })
             )
