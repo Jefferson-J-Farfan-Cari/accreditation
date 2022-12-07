@@ -4,6 +4,13 @@ from apps.user.models import User
 from apps.course.models import PeriodAcademic, Course
 
 
+def file_path(instance, filename):
+    extension = filename.split('.')[-1]
+    name = filename.split('.')[0]
+    new_filename = "%s/file_%s.%s" % (extension, instance.course.name+"_"+instance.period_academic.year+"-"+instance.period_academic.period+"_"+name+"_"+str(instance.id), extension)
+    return new_filename
+
+
 class Professor(BaseAuditingModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     period = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
@@ -66,24 +73,25 @@ class Folder(BaseAuditingModel):
         return str(self.name)
 
 
-class Resource(BaseAuditingModel):
+class FileResource(BaseAuditingModel):
+    name = models.CharField(max_length=120, unique=False, blank=False, null=False)
     period_academic = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=False, null=False)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, blank=False, null=False)
-    type = models.BooleanField(default=True)
+    path = models.FileField(upload_to=file_path, null=False, blank=False, verbose_name='file resource')
 
     class Meta:
-        db_table = 'resource'
+        db_table = 'file_resource'
         abstract = False
-        verbose_name = 'Resource'
-        verbose_name_plural = 'Resources'
+        verbose_name = 'File_Resource'
+        verbose_name_plural = 'File_Resources'
 
     def __str__(self):
-        return str(self.pk)
+        return self.name
 
 
 class Portfolio(BaseAuditingModel):
-    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, blank=False, null=False)
+    resource = models.ForeignKey(FileResource, on_delete=models.CASCADE, blank=False, null=False)
 
     class Meta:
         db_table = 'portfolio'

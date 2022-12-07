@@ -26,10 +26,10 @@ class FolderViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
 
 
-class ResourceViewSet(ModelViewSet):
-    model = Resource
-    serializer_class = ResourceSerializer
-    queryset = Resource.objects.filter()
+class FileResourceViewSet(ModelViewSet):
+    model = FileResource
+    serializer_class = FileResourceSerializer
+    queryset = FileResource.objects.filter()
     filter_backends = [DjangoFilterBackend]
 
 
