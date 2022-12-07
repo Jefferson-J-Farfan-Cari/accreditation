@@ -19,4 +19,5 @@ urlpatterns = router.urls
 urlpatterns += [
     path('api/auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/dashboard/', DashboardViewSet.as_view())
 ]
