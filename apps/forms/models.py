@@ -2,6 +2,7 @@ from django.db import models
 
 from apps.base.models import BaseAuditingModel
 from apps.course.models import Course
+from apps.portafolio.models import Form
 
 
 class SyllabusAbetForm(BaseAuditingModel):
@@ -14,6 +15,7 @@ class SyllabusAbetForm(BaseAuditingModel):
     lab_practical_experiences = models.CharField(max_length=1024, blank=True, null=True)
     methodology = models.CharField(max_length=1024, blank=True, null=True)
     final_note_formula = models.CharField(max_length=1024, blank=True, null=True)
+    form = models.ForeignKey(Form, on_delete=models.CASCADE, blank=False, null=True)
 
     class Meta:
         db_table = 'syllabus_abet_form'
