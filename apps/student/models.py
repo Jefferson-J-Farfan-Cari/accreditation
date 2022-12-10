@@ -97,5 +97,5 @@ class LevelDescription(BaseAuditingModel):
 class MatchCourseCompetence(BaseAuditingModel):
     study_plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    competencies = models.ManyToManyField(Competencies)
+    competencies = models.ForeignKey(Competencies, on_delete=models.CASCADE)
     value = models.IntegerField()
