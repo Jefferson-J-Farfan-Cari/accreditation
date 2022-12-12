@@ -78,6 +78,7 @@ class FileResource(BaseAuditingModel):
     period_academic = models.ForeignKey(PeriodAcademic, on_delete=models.CASCADE, blank=False, null=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=False, null=False)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, blank=False, null=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     path = models.FileField(upload_to=file_path, null=False, blank=False, verbose_name='file resource')
 
     class Meta:
