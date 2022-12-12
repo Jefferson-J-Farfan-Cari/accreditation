@@ -58,6 +58,7 @@ class FileResourceSerializer(serializers.ModelSerializer):
             self.fields['period_academic'] = PeriodAcademicSerializer(obj, many=False)
             self.fields['course'] = CourseSerializer(obj, many=False)
             self.fields['folder'] = FolderSerializer(obj, many=False)
+            self.fields['owner'] = UserSerializer(obj, many=False)
         return super(FileResourceSerializer, self).to_representation(obj)
 
 
