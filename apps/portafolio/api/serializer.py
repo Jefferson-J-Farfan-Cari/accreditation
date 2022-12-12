@@ -51,7 +51,7 @@ class FormSerializer(serializers.ModelSerializer):
 class FileResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileResource
-        exclude = ('create_date', 'modified_date')
+        exclude = []
 
     def to_representation(self, obj):
         if 'branches' not in self.fields:
