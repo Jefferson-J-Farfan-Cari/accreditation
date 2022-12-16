@@ -1,7 +1,6 @@
-from django.urls import path
+from django.urls import path, re_path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
 
@@ -19,5 +18,5 @@ urlpatterns = router.urls
 urlpatterns += [
     path('api/auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/dashboard/', DashboardViewSet.as_view())
+    re_path(r'^api/dashboard/(?P<period_id>\d+)/$', DashboardViewSet.as_view())
 ]

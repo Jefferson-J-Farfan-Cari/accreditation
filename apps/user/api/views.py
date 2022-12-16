@@ -1,19 +1,16 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework.parsers import MultiPartParser
-from rest_framework.response import Response
 from rest_framework import viewsets, views, status
+from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from apps.course.models import StudyPlan, Department, Course, Component, PeriodAcademic
+from apps.forms.models import SyllabusAbetForm
+from apps.portafolio.models import Stage, Folder, Form, Professor
+from apps.student.models import StudentResult, Level, Competencies
 from apps.user.api.serializer import (
     UserSerializer, RoleSerializer, PermissionSerializer, CurriculumVitaeSerializer, CustomTokenObtainPairSerializer
 )
 from apps.user.models import User, Role, Permission, CurriculumVitae
-from apps.course.models import StudyPlan, Department, Course, Component, PeriodAcademic
-from apps.student.models import StudentResult, Level, Competencies
-from apps.portafolio.models import Stage, Folder, Form, Professor
-from apps.forms.models import SyllabusAbetForm
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -54,28 +51,9 @@ class CurriculumVitaeViewSet(viewsets.ModelViewSet):
 
 # Dashboard
 class DashboardViewSet(views.APIView):
-    parser_classes = [MultiPartParser]
 
-    @swagger_auto_schema(
-        operation_id='Dashboard',
-        operation_description='Get Dashboard information',
-        manual_parameters=[
-            openapi.Parameter('period_id', openapi.IN_FORM, type=openapi.TYPE_INTEGER,
-                              description='Period academic'),
-        ],
-        responses={
-            status.HTTP_200_OK: openapi.Response(
-                'Success', schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-                    'summary_period': openapi.Schema(type=openapi.TYPE_NUMBER, description='Porcentaje general'),
-                    'academic_config': openapi.Schema(type=openapi.TYPE_NUMBER, description='Conf. académica'),
-                    'portfolio_config': openapi.Schema(type=openapi.TYPE_NUMBER, description='Conf. portafolio'),
-                    'portfolio': openapi.Schema(type=openapi.TYPE_NUMBER, description='Portafolio')
-                })
-            )
-        }
-    )
-    def post(self, request):
-        period = request.data['period_id']
+    def get(self, request, *args, **kwargs):
+        period = self.kwargs['period_id']
 
         # Configuración Académica
         count = 0
@@ -129,5 +107,5 @@ class DashboardViewSet(views.APIView):
             'summary_period': int((academic_config + portfolio_config + portafolio) / 3),
             'academic_config': academic_config,
             'portfolio_config': portfolio_config,
-            'portfolio': portafolio
+            'portfolio': int(portafolio)
         }, status=status.HTTP_200_OK)
