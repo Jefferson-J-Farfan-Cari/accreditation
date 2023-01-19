@@ -24,7 +24,7 @@ class SyllabusDufaAnnexFormSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         if 'branches' not in self.fields:
             self.fields['course'] = CourseSerializer(obj, many=False)
-            self.fields['professors'] = ProfessorSerializer(obj, many=False)
+            self.fields['professors'] = ProfessorSerializer(obj, many=True)
             self.fields['form'] = FormSerializer(obj, many=False)
         return super(SyllabusDufaAnnexFormSerializer, self).to_representation(obj)
 
@@ -50,7 +50,7 @@ class CustomCompetencieSerializer(serializers.ModelSerializer):
             self.fields['syllabus_annex'] = SyllabusDufaAnnexFormSerializer(obj, many=False)
             self.fields['evaluation'] = EvaluationSerializer(obj, many=False)
             self.fields['ref_student_result'] = StudentResultSerializer(obj, many=False)
-            self.fields['criterias'] = CriteriaSerializer(obj, many=False)
+            self.fields['criterias'] = CriteriaSerializer(obj, many=True)
         return super(CustomCompetencieSerializer, self).to_representation(obj)
 
 
